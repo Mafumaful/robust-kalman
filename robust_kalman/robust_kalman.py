@@ -149,7 +149,9 @@ class RobustKalman():
                 d = np.median(np.fabs(r_arr - np.median(r_arr)) / 0.6745)
 
                 self.r_mean_est = minimize(lambda xx: self._m_estimate_r_criterion(xx, r_arr, d), self.history_inovation[-1], method='nelder-mead').x
+                self.r_mean_est = float(self.r_mean_est[0])
                 self.r_var_est = d**2 - np.matmul(np.matmul(self.H, self.P), self.H.T)
+                self.r_var_est = float(self.r_var_est[0, 0])
 
             self.R[0, 0] = self.r_var_est
 
